@@ -1,0 +1,49 @@
+{
+  "name": "routeless-hyper-express-boilerplate",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A hyper-express boilerplate with mongodb and routesless server",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "generate-docs": "node scripts/generate-docs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdmuhtasimfuadfahim/routeless-hyper-express-boilerplate.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Hyper",
+    "express",
+    "Sails",
+    "(Waterline)",
+    "MongoDB",
+    "Zod",
+    "Swagger",
+    "Routeless",
+    "server"
+  ],
+  "author": "Md. Muhtasim Fuad Fahim <muhtasimfuadfahim@proton.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdmuhtasimfuadfahim/routeless-hyper-express-boilerplate/issues"
+  },
+  "homepage": "https://github.com/mdmuhtasimfuadfahim/routeless-hyper-express-boilerplate#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "hyper-express": "^6.16.4",
+    "sails-disk": "^2.1.2",
+    "sails-hook-orm": "^4.0.3",
+    "sails-mongo": "^2.1.1",
+    "serve-static": "^1.15.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.23.8"
+  }
+}
