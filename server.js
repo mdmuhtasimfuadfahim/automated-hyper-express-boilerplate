@@ -22,11 +22,26 @@ async function loadRoutes(directory, baseRoute = '') {
             await loadRoutes(fullPath, updatedBaseRoute);
         } else {
             const handler = (await import(pathToFileURL(fullPath).href)).default;
-            let [routeName, method] = entry.name.split('.');
-            if (routeName === 'index') method = 'get';
-            if (routeName === 'createUser') method = 'post';
-            if (routeName === 'updateUser') method = 'patch';
-            if (routeName === 'deleteUser') method = 'delete';
+            let [routeName, ...rest] = entry.name.split('.');
+            let method;
+
+            switch (routeName) {
+                case 'get':
+                    method = 'get';
+                    break;
+                case 'create':
+                    method = 'post';
+                    break;
+                case 'update':
+                    method = 'patch';
+                    break;
+                case 'delete':
+                    method = 'delete';
+                    break;
+                default:
+                    console.warn(`Unknown route name: ${routeName}`);
+                    continue;
+            }
 
             const routePath = `${baseRoute}`;
             webserver[method](routePath, handler);
