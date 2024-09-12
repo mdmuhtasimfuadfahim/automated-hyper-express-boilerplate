@@ -32,28 +32,42 @@ async function loadRoutesFromModules(directory, baseRoute = '') {
             const subRoutes = await loadRoutesFromModules(fullPath, updatedBaseRoute);
             routes.push(...subRoutes);
         } else {
-            let [routeName, ...rest] = entry.name.split('.');
+            let [routeName] = entry.name.split('.');
             let method;
 
             switch (routeName) {
                 case 'get':
                     method = 'get';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'create':
                     method = 'post';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'update':
                     method = 'patch';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'delete':
                     method = 'delete';
+                    routeName = ''; // Remove the action from the route path
+                    break;
+                case 'register':
+                case 'login':
+                case 'logout':
+                case 'refresh-tokens':
+                case 'forgot-password':
+                case 'reset-password':
+                case 'send-verification-email':
+                case 'verify-email':
+                    method = 'post';
                     break;
                 default:
                     console.warn(`Unknown route name: ${routeName}`);
                     continue;
             }
 
-            const routePath = `${baseRoute}`;
+            const routePath = `${baseRoute}${routeName ? '/' + routeName : ''}`;
             routes.push({ method, path: routePath });
         }
     }
@@ -78,8 +92,17 @@ async function generateSwaggerDocs() {
 
     for (const route of routes) {
         const { method, path: routePath } = route;
-        const controllerPath = path.join(__dirname, '../controllers', `${routePath.replace('/', '')}.controller.js`);
-        const validationPath = path.join(__dirname, '../validations', `${routePath.replace('/', '')}.validation.js`);
+        let controllerPath;
+        let validationPath;
+
+        // Check if the route is part of the auth module
+        if (routePath.startsWith('/v1/auth')) {
+            controllerPath = path.join(__dirname, '../controllers/v1/auth.controller.js');
+            validationPath = path.join(__dirname, '../validations/auth.validation.js');
+        } else {
+            controllerPath = path.join(__dirname, '../controllers/v1', `${routePath.split('/')[2]}.controller.js`);
+            validationPath = path.join(__dirname, '../validations', `${routePath.split('/')[2]}.validation.js`);
+        }
 
         let requestBody = {};
         let parameters = [];

@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "1.0.0",
+    "description": "Auto-generated API documentation"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4080"
+    }
+  ],
+  "paths": {
+    "/v1/auth/forgot-password": {
+      "post": {
+        "summary": "API for POST /v1/auth/forgot-password",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "summary": "API for POST /v1/auth/login",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "summary": "API for POST /v1/auth/logout",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/refresh-tokens": {
+      "post": {
+        "summary": "API for POST /v1/auth/refresh-tokens",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "summary": "API for POST /v1/auth/register",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/reset-password": {
+      "post": {
+        "summary": "API for POST /v1/auth/reset-password",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/send-verification-email": {
+      "post": {
+        "summary": "API for POST /v1/auth/send-verification-email",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/auth/verify-email": {
+      "post": {
+        "summary": "API for POST /v1/auth/verify-email",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/v1/user": {
+      "post": {
+        "summary": "API for POST /v1/user",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      },
+      "delete": {
+        "summary": "API for DELETE /v1/user",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      },
+      "get": {
+        "summary": "API for GET /v1/user",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      },
+      "patch": {
+        "summary": "API for PATCH /v1/user",
+        "requestBody": {},
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,9 +8,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js",
-    "generate-docs": "node scripts/generate-docs.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "generate-docs": "node src/scripts/generate-docs.js"
   },
   "repository": {
     "type": "git",
@@ -35,9 +35,11 @@
   },
   "homepage": "https://github.com/mdmuhtasimfuadfahim/routeless-hyper-express-boilerplate#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "hyper-express": "^6.16.4",
+    "jsonwebtoken": "^9.0.2",
     "sails-disk": "^2.1.2",
     "sails-hook-orm": "^4.0.3",
     "sails-mongo": "^2.1.1",

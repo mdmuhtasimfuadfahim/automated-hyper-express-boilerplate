@@ -22,30 +22,48 @@ async function loadRoutes(directory, baseRoute = '') {
             await loadRoutes(fullPath, updatedBaseRoute);
         } else {
             const handler = (await import(pathToFileURL(fullPath).href)).default;
-            let [routeName, ...rest] = entry.name.split('.');
+            let [routeName] = entry.name.split('.');
             let method;
 
             switch (routeName) {
                 case 'get':
                     method = 'get';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'create':
                     method = 'post';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'update':
                     method = 'patch';
+                    routeName = ''; // Remove the action from the route path
                     break;
                 case 'delete':
                     method = 'delete';
+                    routeName = ''; // Remove the action from the route path
+                    break;
+                case 'register':
+                case 'login':
+                case 'logout':
+                case 'refresh-tokens':
+                case 'forgot-password':
+                case 'reset-password':
+                case 'send-verification-email':
+                case 'verify-email':
+                    method = 'post';
                     break;
                 default:
                     console.warn(`Unknown route name: ${routeName}`);
                     continue;
             }
 
-            const routePath = `${baseRoute}`;
-            webserver[method](routePath, handler);
-            console.log(`Loaded: [${method.toUpperCase()}] ${routePath}`);
+            const routePath = `${baseRoute}${routeName ? '/' + routeName : ''}`;
+            if (typeof webserver[method] === 'function') {
+                webserver[method](routePath, handler);
+                console.log(`Loaded: [${method.toUpperCase()}] ${routePath}`);
+            } else {
+                console.error(`Method ${method} is not supported by HyperExpress`);
+            }
         }
     }
 }
