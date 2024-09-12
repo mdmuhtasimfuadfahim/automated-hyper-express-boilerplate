@@ -13,8 +13,7 @@
     "generate-docs": "node src/scripts/generate-docs.js",
     "prepare": "husky install",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
