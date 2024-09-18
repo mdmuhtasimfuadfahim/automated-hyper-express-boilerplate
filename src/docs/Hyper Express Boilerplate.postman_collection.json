@@ -1,0 +1,345 @@
+{
+  "info": {
+    "name": "Hyper Express Boilerplate API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "POST /v0.5/auth/forgot-password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "logout"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/refresh-tokens",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/refresh-tokens",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "refresh-tokens"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\",\n  \"name\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "register"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/reset-password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"sample string\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "reset-password"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/send-verification-email",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/send-verification-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "send-verification-email"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /v0.5/auth/verify-email",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"sample string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/verify-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "verify-email"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "POST /v0.5/user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"sample string\",\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /v0.5/user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /v0.5/user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH /v0.5/user",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"sample\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
