@@ -10,10 +10,13 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "generate-docs": "node src/scripts/generate-docs.js",
     "prepare": "husky install",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "precommit": "lint-staged",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write .",
+    "generate-postman-api": "node src/scripts/generate-postman-api.js",
+    "generate-swagger-docs": "node src/scripts/generate-swagger-docs.js"
   },
   "repository": {
     "type": "git",
@@ -38,11 +41,14 @@
   },
   "homepage": "https://github.com/mdmuhtasimfuadfahim/routeless-hyper-express-boilerplate#readme",
   "dependencies": {
+    "acorn": "^8.12.1",
+    "acorn-walk": "^8.3.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "hyper-express": "^6.16.4",
     "jsonwebtoken": "^9.0.2",
+    "log4js": "^6.9.1",
     "sails-disk": "^2.1.2",
     "sails-hook-orm": "^4.0.3",
     "sails-mongo": "^2.1.1",
@@ -60,7 +66,7 @@
     "prettier": "^3.3.3"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "src/**/*.{js,jsx,ts,tsx,html}": [
       "eslint --fix",
       "prettier --write"
     ]
