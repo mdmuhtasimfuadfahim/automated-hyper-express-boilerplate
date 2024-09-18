@@ -1,6 +1,7 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
+import html from 'eslint-plugin-html';
 
 const compat = new FlatCompat({
     baseDirectory: import.meta.url,
@@ -23,6 +24,11 @@ export default [
                 URL: 'readonly',
                 global: 'readonly',
             },
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
         },
         rules: {
             ...js.configs.recommended.rules,
@@ -34,6 +40,9 @@ export default [
     },
     {
         files: ['**/*.html'],
+        plugins: {
+            html,
+        },
         languageOptions: {
             globals: {
                 window: 'readonly',

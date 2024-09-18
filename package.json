@@ -1,6 +1,6 @@
 {
   "name": "routeless-hyper-express-boilerplate",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "type": "module",
   "description": "A hyper-express boilerplate with mongodb and routesless server",
   "main": "server.js",
@@ -60,6 +60,7 @@
   "devDependencies": {
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.1",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.10",
