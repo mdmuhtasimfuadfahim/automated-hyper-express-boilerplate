@@ -108,9 +108,27 @@ webserver.get('/', (req, res) =>
   res.type('text/html').sendFile(path.join(__dirname, 'matrix', 'index.html')),
 );
 
-// Add the /poll route
+// This route returns the current version of the application.
+// Useful for checking the deployed version.
 webserver.get('/poll', (req, res) => {
   res.json({ version: packageJson.version });
+});
+
+// This route returns detailed health status of the server.
+// Includes uptime, memory usage, CPU usage, and more.
+webserver.get('/health', (req, res) => {
+  const healthStatus = {
+    status: 'healthy',
+    uptime: process.uptime(),
+    memoryUsage: process.memoryUsage(),
+    cpuUsage: process.cpuUsage(),
+    loadAverage: os.loadavg(),
+    totalMemory: os.totalmem(),
+    freeMemory: os.freemem(),
+    cpus: os.cpus().length,
+    networkInterfaces: os.networkInterfaces(),
+  };
+  res.json(healthStatus);
 });
 
 // Load all routes from the 'modules' directory and start the server once the routes are loaded

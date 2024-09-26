@@ -1,20 +1,30 @@
-# Use a lightweight Node.js image
-FROM node:18-alpine
+FROM python:3.8-slim-buster@sha256:2ce8031b678a8de21815a760313707f145f69ffc80f8d411b2d5f198f47608bf as base
 
-# Set the working directory
-WORKDIR /app
+RUN apt-get update
+RUN apt-get install curl nano -y
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
+RUN apt-get install nodejs -y
 
-# Install dependencies
-RUN npm install --production
+RUN useradd -ms /bin/bash node
+WORKDIR /home/node
 
-# Copy the rest of the application code
-COPY . .
-
-# Expose the port the app runs on
 EXPOSE 4080
+HEALTHCHECK --interval=15s --timeout=10s --retries=2 CMD curl -f http://localhost:4080/health || exit 1
 
-# Start the application
-CMD ["npm", "start"]
+COPY --chown=node:node requirements.txt ./
+RUN pip3 install -r requirements.txt
+
+COPY --chown=node:node package*.json ./
+
+FROM base as production
+RUN npm ci --only=production
+COPY --chown=node:node ./ ./
+USER node
+CMD ["node", "src/server.js"]
+
+FROM base as development
+RUN npm i -g nodemon && npm ci
+COPY --chown=node:node ./ ./
+USER node
+CMD ["nodemon", "src/server.js"]
