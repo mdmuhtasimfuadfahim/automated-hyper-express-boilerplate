@@ -4,25 +4,17 @@ import validator from 'validator';
 export const registerSchema = z.object({
   email: z
     .string()
-    .email()
-    .refine((value) => {
-      if (!validator.isEmail(value)) {
-        throw new Error('Invalid email');
-      }
-      return true;
+    .email({ message: 'Invalid email' })
+    .refine((value) => validator.isEmail(value), {
+      message: 'Invalid email',
     }),
   password: z
     .string()
-    .min(8)
-    .refine((value) => {
-      if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-        throw new Error(
-          'Password must contain at least one letter and one number',
-        );
-      }
-      return true;
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .refine((value) => /\d/.test(value) && /[a-zA-Z]/.test(value), {
+      message: 'Password must contain at least one letter and one number',
     }),
-  name: z.string().min(1),
+  name: z.string().min(1, { message: 'Name is required' }),
 });
 
 export const loginSchema = z.object({

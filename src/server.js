@@ -24,7 +24,9 @@ const packageJson = JSON.parse(
 );
 
 const protectedRoutes = [
-  // Add protected routes here, e.g., '/auth/protected-route'
+  '/v0.5/auth/reset-password',
+  '/v0.5/auth/send-verification-email',
+  '/v0.5/auth/verify-email',
 ];
 
 async function loadRoutes(directory, baseRoute = '') {
@@ -77,14 +79,36 @@ async function loadRoutes(directory, baseRoute = '') {
       }
 
       const routePath = `${baseRoute}${routeName ? '/' + routeName : ''}`;
+
       if (typeof webserver[method] === 'function') {
-        if (protectedRoutes.includes(routePath)) {
-          // Apply middleware to protected routes
-          webserver[method](routePath, authMiddleware, apiLimiter, handler);
+        if (baseRoute.includes(':id?')) {
+          // Create both routes for folders named ':id?'
+          const baseRouteWithoutId = baseRoute.replace('/:id?', '');
+          if (protectedRoutes.includes(routePath)) {
+            webserver[method](
+              baseRouteWithoutId,
+              authMiddleware,
+              apiLimiter,
+              handler,
+            );
+            webserver[method](routePath, authMiddleware, apiLimiter, handler);
+          } else {
+            webserver[method](baseRouteWithoutId, apiLimiter, handler);
+            webserver[method](routePath, apiLimiter, handler);
+          }
+          logger.info(
+            `Loaded: [${method.toUpperCase()}] ${baseRouteWithoutId}`,
+          );
+          logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
         } else {
-          webserver[method](routePath, apiLimiter, handler);
+          // Create the route normally
+          if (protectedRoutes.includes(routePath)) {
+            webserver[method](routePath, authMiddleware, apiLimiter, handler);
+          } else {
+            webserver[method](routePath, apiLimiter, handler);
+          }
+          logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
         }
-        logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
       } else {
         logger.error(`Method ${method} is not supported by HyperExpress`);
       }
