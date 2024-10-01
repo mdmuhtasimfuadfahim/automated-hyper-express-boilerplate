@@ -10,12 +10,23 @@ dotenv.config();
 const PORT = process.env.PORT || 4080;
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
+const protectedRoutes = [
+  '/v0.5/auth/reset-password',
+  '/v0.5/auth/send-verification-email',
+  '/v0.5/auth/verify-email',
+];
+
 async function loadRoutesFromModules(directory, baseRoute = '') {
   const routes = [];
   const filesAndFolders = fs.readdirSync(directory, { withFileTypes: true });
   for (const entry of filesAndFolders) {
     const fullPath = path.join(directory, entry.name);
     if (entry.isDirectory()) {
+      // Skip the 'skipFolderName' directory under 'modules/v0.5'
+      if (entry.name === 'helper' && baseRoute === '/v0.5') {
+        continue;
+      }
+
       let updatedBaseRoute = baseRoute + '/' + entry.name;
       const subRoutes = await loadRoutesFromModules(fullPath, updatedBaseRoute);
       routes.push(...subRoutes);
@@ -120,6 +131,11 @@ async function generatePostmanCollection() {
         value: `http://localhost:${PORT}`,
         type: 'string',
       },
+      {
+        key: 'bearer_token',
+        value: '',
+        type: 'string',
+      },
     ],
     item: [],
   };
@@ -158,6 +174,28 @@ async function generatePostmanCollection() {
         },
       },
     };
+
+    // Add Authorization header and auth section if the route is protected or not in the auth directory
+    if (
+      protectedRoutes.includes(routePath) ||
+      !routePath.startsWith('/v0.5/auth')
+    ) {
+      request.request.header.push({
+        key: 'Authorization',
+        value: 'Bearer {{bearer_token}}',
+        type: 'text',
+      });
+      request.request.auth = {
+        type: 'bearer',
+        bearer: [
+          {
+            key: 'token',
+            value: '{{bearer_token}}',
+            type: 'string',
+          },
+        ],
+      };
+    }
 
     // Read the file to extract the controller function name
     const fileContent = fs.readFileSync(file, 'utf-8');
