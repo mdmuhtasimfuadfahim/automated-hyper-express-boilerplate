@@ -8,6 +8,11 @@
       "key": "base_url",
       "value": "http://localhost:4080",
       "type": "string"
+    },
+    {
+      "key": "bearer_token",
+      "value": "",
+      "type": "string"
     }
   ],
   "item": [
@@ -129,7 +134,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\",\n  \"name\": \"samplepassword\"\n}",
+              "raw": "{\n  \"email\": \"sample\",\n  \"password\": \"sample\",\n  \"name\": \"samplepassword\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -153,7 +158,13 @@
           "name": "POST /v0.5/auth/reset-password",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"token\": \"sample string\",\n  \"password\": \"samplepassword\"\n}",
@@ -173,6 +184,16 @@
                 "auth",
                 "reset-password"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         },
@@ -180,7 +201,13 @@
           "name": "POST /v0.5/auth/send-verification-email",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{}",
@@ -200,6 +227,16 @@
                 "auth",
                 "send-verification-email"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         },
@@ -207,7 +244,13 @@
           "name": "POST /v0.5/auth/verify-email",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"token\": \"sample string\"\n}",
@@ -227,6 +270,16 @@
                 "auth",
                 "verify-email"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         }
@@ -236,10 +289,59 @@
       "name": "user",
       "item": [
         {
+          "name": "GET /v0.5/user/:id?",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user/:id?",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user",
+                ":id?"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
           "name": "POST /v0.5/user",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"sample string\",\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\"\n}",
@@ -258,6 +360,16 @@
                 "v0.5",
                 "user"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
             }
           }
         },
@@ -265,7 +377,13 @@
           "name": "DELETE /v0.5/user",
           "request": {
             "method": "DELETE",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{}",
@@ -284,31 +402,15 @@
                 "v0.5",
                 "user"
               ]
-            }
-          }
-        },
-        {
-          "name": "GET /v0.5/user",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
             },
-            "url": {
-              "raw": "{{base_url}}/v0.5/user",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "v0.5",
-                "user"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
               ]
             }
           }
@@ -317,7 +419,13 @@
           "name": "PATCH /v0.5/user",
           "request": {
             "method": "PATCH",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"id\": \"sample\"\n}",
@@ -335,6 +443,16 @@
               "path": [
                 "v0.5",
                 "user"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
               ]
             }
           }
