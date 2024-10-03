@@ -16,7 +16,8 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write .",
     "generate-postman-api": "node src/scripts/generate-postman-api.js",
-    "generate-swagger-docs": "node src/scripts/generate-swagger-docs.js"
+    "generate-swagger-docs": "node src/scripts/generate-swagger-docs.js",
+    "generate-integration-test-postman-api": "node src/scripts/geenrate-integration-test-postman-api.js"
   },
   "repository": {
     "type": "git",

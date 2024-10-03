@@ -1,0 +1,594 @@
+{
+  "info": {
+    "name": "Hyper Express Boilerplate API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4080",
+      "type": "string"
+    },
+    {
+      "key": "bearer_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "POST /v0.5/auth/forgot-password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /v0.5/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /v0.5/auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "event": []
+        },
+        {
+          "name": "POST /v0.5/auth/refresh-tokens",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/refresh-tokens",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "refresh-tokens"
+              ]
+            }
+          },
+          "event": []
+        },
+        {
+          "name": "POST /v0.5/auth/register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sample\",\n  \"password\": \"sample\",\n  \"name\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "});",
+                  "pm.test(\"Response should have property 'password'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "});",
+                  "pm.test(\"Response should have property 'name' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('name');",
+                  "    pm.expect(pm.response.json().name).to.be.a('string');",
+                  "    pm.expect(pm.response.json().name.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /v0.5/auth/reset-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"sample string\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "reset-password"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'token' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('token');",
+                  "    pm.expect(pm.response.json().token).to.be.a('string');",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /v0.5/auth/send-verification-email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/send-verification-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "send-verification-email"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": []
+        },
+        {
+          "name": "POST /v0.5/auth/verify-email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"sample string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/auth/verify-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "auth",
+                "verify-email"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'token' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('token');",
+                  "    pm.expect(pm.response.json().token).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "GET /v0.5/user/:id?",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user/:id?",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user",
+                ":id?"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": []
+        },
+        {
+          "name": "POST /v0.5/user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"sample string\",\n  \"email\": \"sample@example.com\",\n  \"password\": \"samplepassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'name' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('name');",
+                  "    pm.expect(pm.response.json().name).to.be.a('string');",
+                  "});",
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /v0.5/user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": []
+        },
+        {
+          "name": "PATCH /v0.5/user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearer_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"sample\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v0.5/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v0.5",
+                "user"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearer_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'id'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
