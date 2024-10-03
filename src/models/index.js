@@ -1,9 +1,11 @@
 import { waterline, dbConfig } from '../config/db-config.js';
 import User from './user.model.js';
+import Token from './token.model.js';
 import logger from '../config/log4js.js';
 
 // Register models
 waterline.registerModel(User);
+waterline.registerModel(Token);
 
 // Register other models as needed
 const initializeWaterline = async () => {
@@ -16,6 +18,7 @@ const initializeWaterline = async () => {
       logger.info('ORM initialized');
       // Make models globally accessible
       global.User = ontology.collections.user;
+      global.Token = ontology.collections.token;
       resolve(ontology);
     });
   });

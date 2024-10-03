@@ -44,7 +44,22 @@
                 "forgot-password"
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "POST /v0.5/auth/login",
@@ -71,7 +86,27 @@
                 "login"
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "POST /v0.5/auth/logout",
@@ -98,7 +133,8 @@
                 "logout"
               ]
             }
-          }
+          },
+          "event": []
         },
         {
           "name": "POST /v0.5/auth/refresh-tokens",
@@ -125,7 +161,8 @@
                 "refresh-tokens"
               ]
             }
-          }
+          },
+          "event": []
         },
         {
           "name": "POST /v0.5/auth/register",
@@ -152,7 +189,28 @@
                 "register"
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'email'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "});",
+                  "pm.test(\"Response should have property 'password'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "});",
+                  "pm.test(\"Response should have property 'name' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('name');",
+                  "    pm.expect(pm.response.json().name).to.be.a('string');",
+                  "    pm.expect(pm.response.json().name.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "POST /v0.5/auth/reset-password",
@@ -195,7 +253,26 @@
                 }
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'token' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('token');",
+                  "    pm.expect(pm.response.json().token).to.be.a('string');",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "POST /v0.5/auth/send-verification-email",
@@ -238,7 +315,8 @@
                 }
               ]
             }
-          }
+          },
+          "event": []
         },
         {
           "name": "POST /v0.5/auth/verify-email",
@@ -281,7 +359,21 @@
                 }
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'token' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('token');",
+                  "    pm.expect(pm.response.json().token).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -329,7 +421,8 @@
                 }
               ]
             }
-          }
+          },
+          "event": []
         },
         {
           "name": "POST /v0.5/user",
@@ -371,7 +464,31 @@
                 }
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'name' of type string\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('name');",
+                  "    pm.expect(pm.response.json().name).to.be.a('string');",
+                  "});",
+                  "pm.test(\"Response should have property 'email' of type email\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('email');",
+                  "    pm.expect(pm.response.json().email).to.be.a('string');",
+                  "    pm.expect(pm.response.json().email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+                  "});",
+                  "pm.test(\"Response should have property 'password' of type string with minimum length\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('password');",
+                  "    pm.expect(pm.response.json().password).to.be.a('string');",
+                  "    pm.expect(pm.response.json().password.length).to.be.at.least(8);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "DELETE /v0.5/user",
@@ -413,7 +530,8 @@
                 }
               ]
             }
-          }
+          },
+          "event": []
         },
         {
           "name": "PATCH /v0.5/user",
@@ -455,7 +573,20 @@
                 }
               ]
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Response should have property 'id'\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('id');",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     }

@@ -114,6 +114,67 @@ function generateSampleData(schema) {
   return sampleData;
 }
 
+function generateTestScript(schema) {
+  const testScript = [];
+
+  for (const key in schema) {
+    switch (schema[key]) {
+      case 'string':
+        testScript.push(
+          `pm.test("Response should have property '${key}' of type string", function () {`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json()).to.have.property('${key}');`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json().${key}).to.be.a('string');`,
+        );
+        testScript.push(`});`);
+        break;
+      case 'email':
+        testScript.push(
+          `pm.test("Response should have property '${key}' of type email", function () {`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json()).to.have.property('${key}');`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json().${key}).to.be.a('string');`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json().${key}).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);`,
+        );
+        testScript.push(`});`);
+        break;
+      case 'min':
+        testScript.push(
+          `pm.test("Response should have property '${key}' of type string with minimum length", function () {`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json()).to.have.property('${key}');`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json().${key}).to.be.a('string');`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json().${key}.length).to.be.at.least(8);`,
+        );
+        testScript.push(`});`);
+        break;
+      default:
+        testScript.push(
+          `pm.test("Response should have property '${key}'", function () {`,
+        );
+        testScript.push(
+          `    pm.expect(pm.response.json()).to.have.property('${key}');`,
+        );
+        testScript.push(`});`);
+    }
+  }
+
+  return testScript;
+}
+
 async function generatePostmanCollection() {
   const routes = await loadRoutesFromModules(
     path.join(__dirname, '../modules'),
@@ -173,6 +234,7 @@ async function generatePostmanCollection() {
           path: routePath.split('/').filter(Boolean),
         },
       },
+      event: [],
     };
 
     // Add Authorization header and auth section if the route is protected or not in the auth directory
@@ -260,6 +322,15 @@ async function generatePostmanCollection() {
               );
               const sampleData = generateSampleData(schema);
               request.request.body.raw = JSON.stringify(sampleData, null, 2);
+
+              const testScript = generateTestScript(schema);
+              request.event.push({
+                listen: 'test',
+                script: {
+                  type: 'text/javascript',
+                  exec: testScript,
+                },
+              });
             }
           }
         }
@@ -272,7 +343,7 @@ async function generatePostmanCollection() {
   fs.writeFileSync(
     path.join(
       __dirname,
-      '../docs/Hyper Express Boilerplate.postman_collection.json',
+      '../docs/Hyper Express Integration Test.postman_collection.json',
     ),
     JSON.stringify(postmanCollection, null, 2),
     { encoding: 'utf8', flag: 'w', mode: 0o666 },

@@ -16,7 +16,8 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write .",
     "generate-postman-api": "node src/scripts/generate-postman-api.js",
-    "generate-swagger-docs": "node src/scripts/generate-swagger-docs.js"
+    "generate-swagger-docs": "node src/scripts/generate-swagger-docs.js",
+    "generate-integration-test-postman-api": "node src/scripts/geenrate-integration-test-postman-api.js"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "acorn-walk": "^8.3.4",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
+    "express-rate-limit": "^7.4.0",
     "fs-extra": "^11.2.0",
     "hyper-express": "^6.16.4",
     "jsonwebtoken": "^9.0.2",

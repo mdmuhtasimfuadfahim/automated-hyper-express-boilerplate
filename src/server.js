@@ -7,6 +7,8 @@ import swaggerUi from 'swagger-ui-express';
 import initializeWaterline from './models/index.js';
 import logger from './config/log4js.js';
 import os from 'os';
+import authMiddleware from './middlewares/auth.middleware.js';
+import apiLimiter from './middlewares/rate-limiter.middleware.js';
 
 const webserver = new HyperExpress.Server();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -21,11 +23,22 @@ const packageJson = JSON.parse(
   fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'),
 );
 
+const protectedRoutes = [
+  '/v0.5/auth/reset-password',
+  '/v0.5/auth/send-verification-email',
+  '/v0.5/auth/verify-email',
+];
+
 async function loadRoutes(directory, baseRoute = '') {
   const filesAndFolders = fs.readdirSync(directory, { withFileTypes: true });
   for (const entry of filesAndFolders) {
     const fullPath = path.join(directory, entry.name);
     if (entry.isDirectory()) {
+      // Skip the 'skipFolderName' directory under 'modules/v0.5'
+      if (entry.name === 'helper' && baseRoute === '/v0.5') {
+        continue;
+      }
+
       let updatedBaseRoute = baseRoute + '/' + entry.name;
       await loadRoutes(fullPath, updatedBaseRoute);
     } else {
@@ -36,19 +49,19 @@ async function loadRoutes(directory, baseRoute = '') {
       switch (routeName) {
         case 'get':
           method = 'get';
-          routeName = ''; // Remove the action from the route path
+          routeName = '';
           break;
         case 'create':
           method = 'post';
-          routeName = ''; // Remove the action from the route path
+          routeName = '';
           break;
         case 'update':
           method = 'patch';
-          routeName = ''; // Remove the action from the route path
+          routeName = '';
           break;
         case 'delete':
           method = 'delete';
-          routeName = ''; // Remove the action from the route path
+          routeName = '';
           break;
         case 'register':
         case 'login':
@@ -66,9 +79,36 @@ async function loadRoutes(directory, baseRoute = '') {
       }
 
       const routePath = `${baseRoute}${routeName ? '/' + routeName : ''}`;
+
       if (typeof webserver[method] === 'function') {
-        webserver[method](routePath, handler);
-        logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
+        if (baseRoute.includes(':id?')) {
+          // Create both routes for folders named ':id?'
+          const baseRouteWithoutId = baseRoute.replace('/:id?', '');
+          if (protectedRoutes.includes(routePath)) {
+            webserver[method](
+              baseRouteWithoutId,
+              authMiddleware,
+              apiLimiter,
+              handler,
+            );
+            webserver[method](routePath, authMiddleware, apiLimiter, handler);
+          } else {
+            webserver[method](baseRouteWithoutId, apiLimiter, handler);
+            webserver[method](routePath, apiLimiter, handler);
+          }
+          logger.info(
+            `Loaded: [${method.toUpperCase()}] ${baseRouteWithoutId}`,
+          );
+          logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
+        } else {
+          // Create the route normally
+          if (protectedRoutes.includes(routePath)) {
+            webserver[method](routePath, authMiddleware, apiLimiter, handler);
+          } else {
+            webserver[method](routePath, apiLimiter, handler);
+          }
+          logger.info(`Loaded: [${method.toUpperCase()}] ${routePath}`);
+        }
       } else {
         logger.error(`Method ${method} is not supported by HyperExpress`);
       }
