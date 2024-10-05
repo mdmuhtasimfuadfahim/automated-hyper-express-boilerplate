@@ -1,2 +1,2 @@
 PORT=4080
-MONGODB_URI=mongodb+srv://muhtasimfahim:8UQCiBtyPqgC6C4k@hyper-express-boilerpla.7g6qt.mongodb.net/automate-hyper-express-boilerplate?retryWrites=true&w=majority&ssl=true
+MONGODB_URI=mongodb+srv://url:pass/db_name?retryWrites=true&w=majority&ssl=true
