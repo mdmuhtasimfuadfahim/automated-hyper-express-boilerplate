@@ -1,2 +1,0 @@
-PORT=4080
-MONGODB_URI=mongodb+srv://url:pass/db_name?retryWrites=true&w=majority&ssl=true
