@@ -1,15 +1,17 @@
-import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 
 const authService = {
   async register(data) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    const user = await User.create({ ...data, password: hashedPassword });
+    const user = await global.User.create({
+      ...data,
+      password: hashedPassword,
+    });
     return user;
   },
 
   async login(data) {
-    const user = await User.findOne({ email: data.email });
+    const user = await global.User.findOne({ email: data.email });
     if (!user || !(await bcrypt.compare(data.password, user.password))) {
       throw new Error('Invalid email or password');
     }

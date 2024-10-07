@@ -24,11 +24,10 @@ const authController = {
           successResponse(
             'success',
             [user],
-            'limitUsageStats',
             'User registered successfully',
-            'comment',
-            'traceCode',
-            'requestId',
+            `User registered with ID: ${user._id} and log traceCode: ${req.traceCode}`,
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -39,11 +38,10 @@ const authController = {
           .json(
             errorResponse(
               'error',
-              'limitUsageStats',
+              'Input feilds are not valid!',
               error.errors,
-              'comment',
-              'traceCode',
-              'requestId',
+              req.traceCode,
+              req.requestId,
             ),
           );
       }
@@ -52,11 +50,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
-            'comment',
-            'traceCode',
-            'requestId',
+            error,
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -72,11 +69,10 @@ const authController = {
           successResponse(
             'success',
             [tokens],
-            'limitUsageStats',
             'Login successful',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -87,11 +83,10 @@ const authController = {
           .json(
             errorResponse(
               'error',
-              'limitUsageStats',
               error.errors,
               'comment',
-              'traceCode',
-              'requestId',
+              req.traceCode,
+              req.requestId,
             ),
           );
       }
@@ -100,11 +95,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -119,11 +113,10 @@ const authController = {
           successResponse(
             'success',
             [],
-            'limitUsageStats',
             'Logout successful',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -133,11 +126,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -152,11 +144,10 @@ const authController = {
           successResponse(
             'success',
             [tokens],
-            'limitUsageStats',
             'Tokens refreshed successfully',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -166,11 +157,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -186,11 +176,10 @@ const authController = {
           successResponse(
             'success',
             [],
-            'limitUsageStats',
             'Password reset email sent',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -200,11 +189,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -223,11 +211,10 @@ const authController = {
           successResponse(
             'success',
             [],
-            'limitUsageStats',
             'Password reset successful',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -237,11 +224,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -256,11 +242,10 @@ const authController = {
           successResponse(
             'success',
             [],
-            'limitUsageStats',
             'Verification email sent',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -270,11 +255,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }
@@ -290,11 +274,10 @@ const authController = {
           successResponse(
             'success',
             [],
-            'limitUsageStats',
             'Email verified successfully',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     } catch (error) {
@@ -304,11 +287,10 @@ const authController = {
         .json(
           errorResponse(
             'error',
-            'limitUsageStats',
             'Internal Server Error',
             'comment',
-            'traceCode',
-            'requestId',
+            req.traceCode,
+            req.requestId,
           ),
         );
     }

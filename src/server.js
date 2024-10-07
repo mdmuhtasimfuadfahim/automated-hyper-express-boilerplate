@@ -9,6 +9,8 @@ import logger from './config/log4js.js';
 import os from 'os';
 import authMiddleware from './middlewares/auth.middleware.js';
 import apiLimiter from './middlewares/rate-limiter.middleware.js';
+import bodyParserMiddleware from './middlewares/body-parser.middleware.js';
+import logMiddleware from './middlewares/log.middleware.js';
 
 const webserver = new HyperExpress.Server();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -119,6 +121,14 @@ async function loadRoutes(directory, baseRoute = '') {
 async function startServer() {
   try {
     await initializeWaterline();
+
+    // Use the logging middleware
+    webserver.use(bodyParserMiddleware);
+
+    // Use the logging middleware
+    webserver.use(logMiddleware);
+
+    await loadRoutes(path.join(__dirname, 'modules'));
     await webserver.listen(parseInt(PORT), () => {
       logger.info(`Server is listening on port ${PORT}`);
       logSystemInfo();
@@ -171,5 +181,5 @@ webserver.get('/health', (req, res) => {
   res.json(healthStatus);
 });
 
-// Load all routes from the 'modules' directory and start the server once the routes are loaded
-loadRoutes(path.join(__dirname, 'modules')).then(() => startServer());
+// Start the server
+startServer();
